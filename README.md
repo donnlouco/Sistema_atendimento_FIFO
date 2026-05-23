@@ -22,4 +22,15 @@
 
 1. A definir.
 
+---
+## Esrutura de pastas
 
+sistema-atendimento/
+├── backend/
+│   ├── main.py          
+│   └── requirements.txt # Dependências 
+├── frontend/
+│   ├── index.html       
+│   ├── style.css        
+│   └── app.js           # Conecta com a API
+└── README.md            
