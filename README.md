@@ -23,14 +23,15 @@
 1. A definir.
 
 ---
-## Esrutura de pastas
+## 📂 Estrutura de Pastas
 
+```text
 sistema-atendimento/
 ├── backend/
-│   ├── main.py          
-│   └── requirements.txt # Dependências 
+│   ├── main.py           
+│   └── requirements.txt  # Dependências do projeto 
 ├── frontend/
 │   ├── index.html       
-│   ├── style.css        
-│   └── app.js           # Conecta com a API
-└── README.md            
+│   ├── style.css         
+│   └── app.js            # Lógica JavaScript e consumo das rotas da API
+└── README.md             
