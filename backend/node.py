@@ -41,7 +41,7 @@ class Queue:
         elementos = []
         valor = self.head
         while valor:
-            elementos.append(valor.data.dict())
+            elementos.append(valor.data.model_dump())
             valor = valor.next
         return elementos
     
