@@ -1,0 +1,22 @@
+# InfraTL
+SISTEMAS INTELIGENTE DE ZELADORIA URBANA
+
+## Comandos
+
+Criar o ambiente Venv <br>
+```python -m venv venv```
+
+Ativar o ambiente venv <br>
+```.\venv\Scripts\activate```
+
+Instalar a extenção do uvicorn <br>
+```pip install fastapi uvicorn pydantic```
+
+Criar as dependencias no requeriments <br>
+```pip freeze > requirements.txt```
+
+Instalar os arquivos do requeriments <br>
+```pip install -r requirements.txt```
+
+Executar o projeto FAST API <br>
+```uvicorn main:app --reload```
