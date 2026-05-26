@@ -9,7 +9,6 @@ rota = APIRouter(tags=["Fila de Clientes"])
     
 @rota.post("/clientes")
 async def cadastrar_cliente(cliente: Cliente):
-    # Pega a hora atual no formato HH:MM:SS
     cliente.horario_chegada = datetime.now().strftime("%H:%M:%S")
     fila_sistema.enqueue(cliente)
     return {"mensagem": "Cliente adicionado à fila"}
@@ -32,7 +31,6 @@ async def remover_primeiro():
     cliente = fila_sistema.dequeue()
     
     if not cliente:
-        # Retorna erro 404 se a fila estiver vazia
         raise HTTPException(status_code=404, detail="Nenhum cliente na fila.")
         
     historico_sistema.append({

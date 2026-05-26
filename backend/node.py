@@ -11,12 +11,10 @@ class Queue:
         self.head = None          
         self.tail = None            
         self._size = 0
-
-    # Insere respeitando a regra de prioridade 
+        
     def enqueue(self, cliente: Cliente):
         node = Node(cliente)
-        
-        # Fila Vazia
+    
         if self.head is None:
             self.head = node
             self.tail = node
