@@ -31,7 +31,7 @@ async function carregarFila() {
 
         dados.fila.forEach((cliente, index) => {
             const item = document.createElement('div');
-            item.className = 'fila-item';
+            item.className = `fila-item ${cliente.tipo.toLowerCase()}`;
             
             item.innerHTML = `
                 <span class="posicao">${index + 1}º</span>
@@ -39,6 +39,7 @@ async function carregarFila() {
                     <strong>${cliente.nome}</strong>
                     <small>Chegada: ${cliente.horario_chegada}</small>
                 </div>
+                <span class="badge">${cliente.tipo}</span>
             `;
             listaFila.appendChild(item);
         });
@@ -65,7 +66,7 @@ async function carregarHistorico() {
             item.className = 'historico-item';
             item.innerHTML = `
                 <strong>${atend.nome}</strong>
-                <small>${atend.horario_atendimento}</small>
+                <small>${atend.tipo} • ${atend.horario_atendimento}</small>
             `;
             listaHistorico.appendChild(item);
         });
@@ -78,13 +79,13 @@ async function carregarHistorico() {
 formCadastro.addEventListener('submit', async (e) => {
     e.preventDefault();
     const nome = document.getElementById('nome').value;
-    const idade = document.getElementById('idade').value;
+    const tipo = document.getElementById('tipo').value;
 
     try {
         const res = await fetch(`${API_URL}/clientes`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ nome, idade })
+            body: JSON.stringify({ nome, tipo })
         });
         if(res.ok) {
             formCadastro.reset();
@@ -101,7 +102,7 @@ btnChamar.addEventListener('click', async () => {
 
         if (res.ok) {
             alertaChamado.className = "alerta sucesso";
-            alertaChamado.innerHTML = `📢 <strong>Chamando:</strong> ${dados.cliente.nome}`;
+            alertaChamado.innerHTML = `📢 <strong>Chamando:</strong> ${dados.cliente.nome} (${dados.cliente.tipo})`;
             atualizarInterface();
         } else {
             alertaChamado.className = "alerta erro";

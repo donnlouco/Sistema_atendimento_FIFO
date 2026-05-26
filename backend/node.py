@@ -22,8 +22,12 @@ class Queue:
             self.tail = node
         
         else:
-            self.tail.next = node
-            self.tail = node
+            if cliente.tipo == "Preferencial":
+                node.next = self.head
+                self.head = node
+            else:
+                self.tail.next = node
+                self.tail = node
         self._size += 1
         return
         

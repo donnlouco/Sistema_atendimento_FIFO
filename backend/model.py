@@ -4,7 +4,7 @@ from typing import Optional
 
 class Cliente(BaseModel):
     nome: str
-    idade: int
+    tipo: str
     horario_chegada: Optional[str] = None
     
 class CancelarRequest(BaseModel):
