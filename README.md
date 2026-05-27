@@ -30,7 +30,9 @@
 sistema-atendimento/
 ├── backend/
 │   ├── main.py           
-│   └── requirements.txt  # Dependências do projeto 
+│   └── controller.py #onde fica a logica das rotas
+│   └── model.py #schema  
+│   └── node.py #os nos e a fila
 ├── frontend/
 │   ├── index.html       
 │   ├── style.css         
