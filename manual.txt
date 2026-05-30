@@ -19,4 +19,4 @@ Instalar os arquivos do requeriments <br>
 ```pip install -r requirements.txt```
 
 Executar o projeto FAST API <br>
-```uvicorn main:app --reload```
+```uvicorn main:app --reload --port 7000```
