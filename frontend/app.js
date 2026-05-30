@@ -135,4 +135,18 @@ formCancelar.addEventListener('submit', async (e) => {
 });
 
 
+function usuarioEstaDigitando() {
+    const elementoAtivo = document.activeElement;
+    return elementoAtivo.tagName === 'INPUT' || elementoAtivo.tagName === 'SELECT';
+}
+
+setInterval(() => {
+   
+    if (!usuarioEstaDigitando()) {
+        console.log("Atualizando interface automaticamente...");
+        atualizarInterface();
+    }
+}, 5000);
+
+
 atualizarInterface();
