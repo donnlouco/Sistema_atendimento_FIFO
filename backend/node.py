@@ -19,13 +19,33 @@ class Queue:
             self.head = node
             self.tail = node
         
-        else:
-            if cliente.tipo == "Preferencial":
+        elif cliente.tipo == "Preferencial":
+            
+            if self.head.data.tipo != "Preferencial":
                 node.next = self.head
                 self.head = node
+            
             else:
-                self.tail.next = node
-                self.tail = node
+                atual = self.head
+
+                while atual.next is not None:
+                    if atual.next.data.tipo == "Preferencial":
+                        atual = atual.next
+                    
+                    else:
+                        break
+                
+                node.next = atual.next
+                atual.next = node
+
+                if node.next is None:
+                    self.tail = node
+
+        else:
+            self.tail.next = node
+            self.tail = node    
+                    
+                
         self._size += 1
         return
         
