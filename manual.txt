@@ -10,9 +10,6 @@ Ativar o ambiente venv <br>
 Instalar a extenção do uvicorn <br>
 ```pip install fastapi uvicorn pydantic```
 
-Criar as dependencias no requeriments <br>
-```pip freeze > requirements.txt```
-
 Instalar os arquivos do requeriments <br>
 ```pip install -r requirements.txt```
 
