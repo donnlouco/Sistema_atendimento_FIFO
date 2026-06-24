@@ -1,4 +1,4 @@
-from model import Cliente
+from schema import Cliente
 
 
 class Node:

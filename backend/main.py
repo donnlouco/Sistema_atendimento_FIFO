@@ -1,13 +1,13 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime
-from controller import rota  
+
+from controller import rota
+from database import init_db
 
 app = FastAPI()
-app.include_router(rota)    
+app.include_router(rota)
 
-
+init_db()
 
 app.add_middleware(
     CORSMiddleware,
@@ -16,11 +16,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-            
-       
-    
-    
-if __name__ == "__main__":  
-    import uvicorn  
-  
+
+
+if __name__ == "__main__":
+    import uvicorn
+
     uvicorn.run(app, host="localhost", port=7000)
