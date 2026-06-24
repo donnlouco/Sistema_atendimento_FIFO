@@ -1,6 +1,6 @@
 const API_URL = 'http://127.0.0.1:7000';
 
-
+// Elementos do DOM
 const formCadastro = document.getElementById('form-cadastro');
 const formCancelar = document.getElementById('form-cancelar');
 const btnChamar = document.getElementById('btn-chamar');
@@ -8,6 +8,9 @@ const listaFila = document.getElementById('lista-fila');
 const totalFila = document.getElementById('total-fila');
 const listaHistorico = document.getElementById('lista-historico');
 const alertaChamado = document.getElementById('alerta-chamado');
+const inputBusca = document.getElementById('buscarNomeHistoricoAtendimento'); 
+
+let todosOsAtendimentos = [];
 
 
 async function atualizarInterface() {
@@ -49,30 +52,60 @@ async function carregarFila() {
 }
 
 
+
 async function carregarHistorico() {
     try {
         const res = await fetch(`${API_URL}/historico`);
         const dados = await res.json();
         
-        listaHistorico.innerHTML = '';
 
-        if (dados.historico.length === 0) {
-            listaHistorico.innerHTML = '<p class="vazio">Nenhum atendimento realizado hoje.</p>';
-            return;
-        }
+        todosOsAtendimentos = dados.historico || [];
 
-        dados.historico.forEach(atend => {
-            const item = document.createElement('div');
-            item.className = 'historico-item';
-            item.innerHTML = `
-                <strong>${atend.nome}</strong>
-                <small>${atend.tipo} • ${atend.horario_atendimento}</small>
-            `;
-            listaHistorico.appendChild(item);
-        });
+
+        const termoBusca = inputBusca ? inputBusca.value.toLowerCase() : '';
+        const listaFiltrada = todosOsAtendimentos.filter(atend => 
+            atend.nome.toLowerCase().includes(termoBusca)
+        );
+
+        renderizarHistorico(listaFiltrada);
+
     } catch (err) {
         console.error("Erro ao carregar histórico:", err);
     }
+}
+
+
+
+function renderizarHistorico(lista) {
+    listaHistorico.innerHTML = '';
+
+    if (lista.length === 0) {
+        listaHistorico.innerHTML = '<p class="vazio">Nenhum atendimento encontrado.</p>';
+        return;
+    }
+
+    lista.forEach(atend => {
+        const item = document.createElement('div');
+        item.className = 'historico-item';
+        item.innerHTML = `
+            <strong>${atend.nome}</strong>
+            <small>${atend.tipo} • ${atend.horario_atendimento}</small>
+        `;
+        listaHistorico.appendChild(item);
+    });
+}
+
+
+if (inputBusca) {
+    inputBusca.addEventListener('input', (e) => {
+        const termoBusca = e.target.value.toLowerCase();
+
+        const listaFiltrada = todosOsAtendimentos.filter(atend => 
+            atend.nome.toLowerCase().includes(termoBusca)
+        );
+
+        renderizarHistorico(listaFiltrada);
+    });
 }
 
 
@@ -133,20 +166,6 @@ formCancelar.addEventListener('submit', async (e) => {
         }
     } catch (err) { console.error(err); }
 });
-
-
-function usuarioEstaDigitando() {
-    const elementoAtivo = document.activeElement;
-    return elementoAtivo.tagName === 'INPUT' || elementoAtivo.tagName === 'SELECT';
-}
-
-setInterval(() => {
-   
-    if (!usuarioEstaDigitando()) {
-        console.log("Atualizando interface automaticamente...");
-        atualizarInterface();
-    }
-}, 5000);
 
 
 atualizarInterface();

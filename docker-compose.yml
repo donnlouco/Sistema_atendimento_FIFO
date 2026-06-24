@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:18
+    container_name: postgres_fila
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "9626"
+      POSTGRES_DB: filaEstrutura
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    networks:
+      - rede_sistema
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d filaEstrutura"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:
+
+networks:
+  rede_sistema:
+    driver: bridge
